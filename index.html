@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sköldbondens schack</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Sköldbondens schack</h1>
+  <p class="tagline">Drottningen är högst — för hon är farligast.</p>
+</header>
+
+<main>
+  <div class="board-wrap">
+    <div id="board" class="board"></div>
+  </div>
+
+  <aside class="panel">
+    <div id="status" class="status">Vit att spela</div>
+
+    <div class="buttons">
+      <button id="btn-new">Nytt parti</button>
+      <button id="btn-undo">Ångra drag</button>
+      <button id="btn-flip">Vänd brädet</button>
+    </div>
+
+    <div class="movelist-wrap">
+      <h2>Dragen</h2>
+      <ol id="movelist" class="movelist"></ol>
+    </div>
+  </aside>
+</main>
+
+<!-- Dialog: nytt parti -->
+<div id="setup" class="overlay">
+  <div class="dialog">
+    <h2>Nytt parti</h2>
+    <div class="field">
+      <label>Motståndare</label>
+      <div class="choice" id="opp-choice">
+        <button data-opp="human" class="selected">Två spelare</button>
+        <button data-opp="ai">Mot datorn</button>
+      </div>
+    </div>
+    <div class="field ai-only hidden">
+      <label>Din färg</label>
+      <div class="choice" id="color-choice">
+        <button data-color="w" class="selected">Vit</button>
+        <button data-color="b">Svart</button>
+      </div>
+    </div>
+    <div class="field ai-only hidden">
+      <label>Svårighetsgrad</label>
+      <div class="choice" id="level-choice">
+        <button data-level="1" class="selected">Lätt</button>
+        <button data-level="2">Medel</button>
+        <button data-level="3">Svår</button>
+      </div>
+    </div>
+    <button id="btn-start" class="primary">Starta partiet</button>
+  </div>
+</div>
+
+<!-- Dialog: bondeförvandling -->
+<div id="promotion" class="overlay hidden">
+  <div class="dialog">
+    <h2>Förvandla bonden till:</h2>
+    <div id="promo-choices" class="promo-choices"></div>
+  </div>
+</div>
+
+<script src="lib/chess.js"></script>
+<script src="pieces.js"></script>
+<script src="ai.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

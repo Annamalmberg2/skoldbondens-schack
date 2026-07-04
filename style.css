@@ -1,0 +1,248 @@
+:root {
+  --gold: #c9a44a;
+  --gold-light: #e8cf8f;
+  --wood-dark: #4a2c1a;
+  --wood-mid: #6e4226;
+  --square-light: #e9d9b7;
+  --square-dark: #9a6b45;
+  --bg: #2b1c12;
+  --panel: #3a2718;
+  --text: #f0e6d2;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  background: radial-gradient(ellipse at 50% 30%, #4a3322 0%, var(--bg) 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+header {
+  text-align: center;
+  padding: 18px 10px 8px;
+}
+
+h1 {
+  color: var(--gold-light);
+  font-size: 1.9rem;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 6px rgba(0,0,0,.6);
+}
+
+.tagline {
+  color: var(--gold);
+  font-style: italic;
+  font-size: .95rem;
+  margin-top: 2px;
+}
+
+main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 16px;
+}
+
+/* ---------- Brädet ---------- */
+
+.board-wrap {
+  padding: 26px;
+  background: linear-gradient(135deg, #5a3520, #3a2010 60%, #4a2a18);
+  border-radius: 14px;
+  border: 2px solid var(--gold);
+  box-shadow: 0 14px 40px rgba(0,0,0,.55), inset 0 0 30px rgba(0,0,0,.4);
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(44px, 11vmin));
+  grid-template-rows: repeat(8, minmax(44px, 11vmin));
+  border: 3px solid var(--gold);
+  box-shadow: 0 4px 18px rgba(0,0,0,.5);
+}
+
+.square {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.square.light {
+  background:
+    repeating-linear-gradient(93deg, rgba(255,255,255,.05) 0 3px, rgba(0,0,0,.02) 3px 7px),
+    var(--square-light);
+}
+
+.square.dark {
+  background:
+    repeating-linear-gradient(87deg, rgba(0,0,0,.07) 0 4px, rgba(255,255,255,.03) 4px 8px),
+    var(--square-dark);
+}
+
+/* koordinater i hörnen av kantrutorna */
+.coord {
+  position: absolute;
+  font-size: .62rem;
+  font-weight: bold;
+  pointer-events: none;
+  opacity: .85;
+}
+.coord.file { right: 3px; bottom: 2px; }
+.coord.rank { left: 3px; top: 2px; }
+.square.light .coord { color: #8a5a34; }
+.square.dark .coord { color: #eeddbb; }
+
+/* pjäser */
+.piece {
+  width: 86%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  pointer-events: none;
+  filter: drop-shadow(0 5px 4px rgba(0,0,0,.45));
+}
+.piece svg { width: 100%; height: auto; display: block; }
+
+/* höjdskala per pjästyp — drottningen ÄR högst, kungen tydligt kortare */
+.piece.q { width: 96%; }
+.piece.k { width: 84%; }
+.piece.b { width: 76%; }
+.piece.n { width: 78%; }
+.piece.r { width: 70%; }
+.piece.p { width: 72%; }
+
+/* markeringar */
+.square.selected { outline: 3px solid var(--gold-light); outline-offset: -3px; }
+.square.lastmove::before {
+  content: ""; position: absolute; inset: 0;
+  background: rgba(233, 208, 90, .32); pointer-events: none;
+}
+.square.check::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(circle, rgba(220,50,40,.55) 0%, rgba(220,50,40,0) 70%);
+  pointer-events: none;
+}
+
+.square .dot {
+  position: absolute; inset: 0; margin: auto;
+  width: 26%; height: 26%;
+  border-radius: 50%;
+  background: rgba(60, 40, 15, .45);
+  box-shadow: 0 0 0 2px rgba(233,208,90,.5);
+  pointer-events: none;
+}
+.square .ring {
+  position: absolute; inset: 4%;
+  border: 4px solid rgba(200, 60, 40, .65);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* ---------- Panelen ---------- */
+
+.panel {
+  width: 250px;
+  background: var(--panel);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+}
+
+.status {
+  font-size: 1.05rem;
+  font-weight: bold;
+  color: var(--gold-light);
+  text-align: center;
+  min-height: 2.6em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.buttons { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 16px; }
+
+button {
+  font-family: inherit;
+  font-size: .95rem;
+  padding: 9px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--gold);
+  background: linear-gradient(180deg, #6e4a26, #4e3016);
+  color: var(--text);
+  cursor: pointer;
+  transition: filter .15s;
+}
+button:hover { filter: brightness(1.2); }
+button.primary {
+  background: linear-gradient(180deg, #d9b45e, #a5772c);
+  color: #2b1c12;
+  font-weight: bold;
+}
+button.selected {
+  background: linear-gradient(180deg, #d9b45e, #a5772c);
+  color: #2b1c12;
+  font-weight: bold;
+}
+
+.movelist-wrap h2 { font-size: 1rem; color: var(--gold); margin-bottom: 6px; }
+.movelist {
+  list-style-position: inside;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: .92rem;
+  line-height: 1.5;
+  padding-right: 4px;
+}
+.movelist li span { display: inline-block; min-width: 58px; }
+
+/* ---------- Dialoger ---------- */
+
+.overlay {
+  position: fixed; inset: 0;
+  background: rgba(10, 6, 3, .75);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 20;
+}
+.overlay.hidden { display: none; }
+
+.dialog {
+  background: var(--panel);
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 26px;
+  width: min(92vw, 380px);
+  box-shadow: 0 20px 60px rgba(0,0,0,.7);
+}
+.dialog h2 { color: var(--gold-light); margin-bottom: 16px; text-align: center; }
+
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: .85rem; color: var(--gold); margin-bottom: 5px; }
+.field.hidden { display: none; }
+.choice { display: flex; gap: 6px; }
+.choice button { flex: 1; padding: 8px 4px; }
+
+#btn-start { width: 100%; margin-top: 8px; }
+
+.promo-choices { display: flex; gap: 10px; justify-content: center; }
+.promo-choices button {
+  width: 70px; height: 90px;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding: 6px;
+}
+.promo-choices svg { width: 100%; height: auto; }
+
+@media (max-width: 700px) {
+  .board { grid-template-columns: repeat(8, 11.5vw); grid-template-rows: repeat(8, 11.5vw); }
+  .board-wrap { padding: 12px; }
+  .panel { width: min(92vw, 380px); }
+}
