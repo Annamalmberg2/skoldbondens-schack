@@ -277,3 +277,10 @@ document.getElementById('btn-start').addEventListener('click', () => {
 
 /* ---------- Start ---------- */
 render();
+
+// testlucka för felsökning i konsolen
+window.__schack = {
+  load(fen) { game = new Chess(fen); lastMove = null; clearSelection(); render(); },
+  fen() { return game.fen(); },
+  history() { return game.history(); }
+};

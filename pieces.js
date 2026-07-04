@@ -104,12 +104,12 @@ function rookSVG(p) {
 /* ---------- Springaren ---------- */
 function knightSVG(p) {
   const horse = `
-  <path d="M33 178 L33 156 C33 122 42 98 60 84 C68 78 72 68 70 56 C69 49 74 47 78 53 L85 65 C89 73 89 84 83 92 L67 112 C61 120 59 129 60 140 L72 178 Z"
+  <path d="M56 178 L54 150 C53 134 50 122 42 114 L32 106 C26 101 25 93 29 87 C36 74 48 66 60 62 L58 48 C58 42 64 40 67 45 L73 56 C79 65 82 75 82 86 L82 122 C82 144 78 162 74 178 Z"
         fill="url(#metal-${p.id})" stroke="${p.stroke}" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M70 56 L64 44 C63 40 67 38 70 42 Z" fill="url(#metal-${p.id})" stroke="${p.stroke}" stroke-width="2"/>
-  <path d="M60 84 C52 96 47 112 46 132" fill="none" stroke="${p.stroke}" stroke-width="1.5" opacity=".5"/>
-  <circle cx="72" cy="66" r="2.6" fill="${p.stroke}"/>
-  <path d="M82 78 L74 84" stroke="${p.stroke}" stroke-width="1.5" opacity=".7"/>`;
+  <path d="M29 90 C33 96 39 99 45 99" fill="none" stroke="${p.stroke}" stroke-width="2" stroke-linecap="round" opacity=".7"/>
+  <circle cx="52" cy="80" r="2.8" fill="${p.stroke}"/>
+  <path d="M74 60 C79 76 80 100 78 122" fill="none" stroke="${p.stroke}" stroke-width="2" opacity=".45"/>
+  <path d="M60 62 L52 52 C50 48 54 44 57 47 Z" fill="url(#metal-${p.id})" stroke="${p.stroke}" stroke-width="1.8"/>`;
   return svgWrap(p, horse + base(p, 178));
 }
 

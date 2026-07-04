@@ -102,22 +102,22 @@ main {
 
 /* pjäser */
 .piece {
-  width: 86%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  position: absolute;
+  bottom: 3%;
+  left: 50%;
+  transform: translateX(-50%);
   pointer-events: none;
   filter: drop-shadow(0 5px 4px rgba(0,0,0,.45));
 }
-.piece svg { width: 100%; height: auto; display: block; }
+.piece svg { height: 100%; width: auto; display: block; }
 
 /* höjdskala per pjästyp — drottningen ÄR högst, kungen tydligt kortare */
-.piece.q { width: 96%; }
-.piece.k { width: 84%; }
-.piece.b { width: 76%; }
-.piece.n { width: 78%; }
-.piece.r { width: 70%; }
-.piece.p { width: 72%; }
+.piece.q { height: 122%; }
+.piece.k { height: 108%; }
+.piece.b { height: 100%; }
+.piece.n { height: 96%; }
+.piece.r { height: 90%; }
+.piece.p { height: 84%; }
 
 /* markeringar */
 .square.selected { outline: 3px solid var(--gold-light); outline-offset: -3px; }
