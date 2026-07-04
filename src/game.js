@@ -231,10 +231,11 @@ document.getElementById('btn-flip').addEventListener('click', () => {
 });
 
 document.getElementById('btn-new').addEventListener('click', () => {
-  document.getElementById('setup').classList.remove('hidden');
+  document.getElementById('landing').classList.remove('hidden');
+  document.getElementById('game').classList.add('hidden');
 });
 
-/* ---------- Dialogen för nytt parti ---------- */
+/* ---------- Landningssidan ---------- */
 
 function wireChoice(containerId, onPick) {
   const container = document.getElementById(containerId);
@@ -249,7 +250,7 @@ function wireChoice(containerId, onPick) {
 
 wireChoice('opp-choice', btn => {
   const isAi = btn.dataset.opp === 'ai';
-  document.querySelectorAll('.field.ai-only').forEach(f =>
+  document.querySelectorAll('.ai-only').forEach(f =>
     f.classList.toggle('hidden', !isAi));
 });
 wireChoice('color-choice', () => {});
@@ -267,7 +268,8 @@ document.getElementById('btn-start').addEventListener('click', () => {
   clearSelection();
   aiThinking = false;
   pendingPromotion = null;
-  document.getElementById('setup').classList.add('hidden');
+  document.getElementById('landing').classList.add('hidden');
+  document.getElementById('game').classList.remove('hidden');
   render();
 
   if (mode === 'ai' && game.turn() === aiColor) {
@@ -276,6 +278,14 @@ document.getElementById('btn-start').addEventListener('click', () => {
 });
 
 /* ---------- Start ---------- */
+
+// dekorativa pjäser på landningssidan — drottningen högst, förstås
+document.getElementById('hero-pieces').innerHTML =
+  `<span class="hp-pawn">${PIECE_SVG.wp}</span>` +
+  `<span class="hp-queen">${PIECE_SVG.wq}</span>` +
+  `<span class="hp-king">${PIECE_SVG.wk}</span>` +
+  `<span class="hp-knight">${PIECE_SVG.wn}</span>`;
+
 render();
 
 // testlucka för felsökning i konsolen

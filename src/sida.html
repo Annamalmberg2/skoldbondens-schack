@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sköldbondens schack</title>
+<meta name="description" content="Spelbart schack med alla regler. Drottningen är högst — för hon är farligast. Bonden bär sköld och högrep.">
+<style>
+/*__STYLE__*/
+</style>
+</head>
+<body>
+
+<!-- ==================== LANDNINGSSIDAN ==================== -->
+<section id="landing">
+  <div class="hero">
+    <div class="hero-pieces" id="hero-pieces"></div>
+    <h1>Sköldbondens schack</h1>
+    <p class="tagline">Drottningen är högst — för hon är farligast.<br>
+    Bonden bär sköld och högrep.</p>
+  </div>
+
+  <div class="setup-card">
+    <h2><span class="step">1</span> Vem vill du möta?</h2>
+    <div class="choice big" id="opp-choice">
+      <button data-opp="human" class="selected">
+        <strong>En kompis</strong>
+        <span>Ni turas om vid samma dator</span>
+      </button>
+      <button data-opp="ai">
+        <strong>Datorn</strong>
+        <span>Välj färg och svårighetsgrad</span>
+      </button>
+    </div>
+
+    <div class="ai-only hidden">
+      <h2><span class="step">2</span> Vilken färg spelar du?</h2>
+      <div class="choice big" id="color-choice">
+        <button data-color="w" class="selected">
+          <strong>Vit</strong>
+          <span>Du börjar</span>
+        </button>
+        <button data-color="b">
+          <strong>Svart</strong>
+          <span>Datorn börjar</span>
+        </button>
+      </div>
+
+      <h2><span class="step">3</span> Hur svår ska datorn vara?</h2>
+      <div class="choice big three" id="level-choice">
+        <button data-level="1" class="selected">
+          <strong>Lätt</strong>
+          <span>Snäll och slarvig</span>
+        </button>
+        <button data-level="2">
+          <strong>Medel</strong>
+          <span>Tänker två drag framåt</span>
+        </button>
+        <button data-level="3">
+          <strong>Svår</strong>
+          <span>Tänker tre drag framåt</span>
+        </button>
+      </div>
+    </div>
+
+    <button id="btn-start" class="primary start-btn">Starta partiet&nbsp;&nbsp;♟</button>
+  </div>
+
+  <footer>Alla schackregler gäller: rockad, en passant, bondeförvandling, patt och remi.</footer>
+</section>
+
+<!-- ==================== SPELET ==================== -->
+<section id="game" class="hidden">
+  <header>
+    <h1>Sköldbondens schack</h1>
+    <p class="tagline">Drottningen är högst — för hon är farligast.</p>
+  </header>
+
+  <main>
+    <div class="board-wrap">
+      <div id="board" class="board"></div>
+    </div>
+
+    <aside class="panel">
+      <div id="status" class="status">Vit att spela</div>
+
+      <div class="buttons">
+        <button id="btn-new">Nytt parti</button>
+        <button id="btn-undo">Ångra drag</button>
+        <button id="btn-flip">Vänd brädet</button>
+      </div>
+
+      <div class="movelist-wrap">
+        <h2>Dragen</h2>
+        <ol id="movelist" class="movelist"></ol>
+      </div>
+    </aside>
+  </main>
+</section>
+
+<!-- Dialog: bondeförvandling -->
+<div id="promotion" class="overlay hidden">
+  <div class="dialog">
+    <h2>Förvandla bonden till:</h2>
+    <div id="promo-choices" class="promo-choices"></div>
+  </div>
+</div>
+
+<script>
+/*__CHESS__*/
+</script>
+<script>
+/*__PIECES__*/
+</script>
+<script>
+/*__AI__*/
+</script>
+<script>
+/*__GAME__*/
+</script>
+</body>
+</html>
