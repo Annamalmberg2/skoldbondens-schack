@@ -10,8 +10,9 @@ for marker, fil in [
     ('/*__STYLE__*/',  'src/style.css'),
     ('/*__CHESS__*/',  'src/chess.js'),
     ('/*__PIECES__*/', 'src/pieces.js'),
-    ('/*__AI__*/',     'src/ai.js'),
-    ('/*__GAME__*/',   'src/game.js'),
+    ('/*__AI__*/',          'src/ai.js'),
+    ('/*__KOMMENTATOR__*/', 'src/kommentator.js'),
+    ('/*__GAME__*/',        'src/game.js'),
 ]:
     innehall = Path(fil).read_text()
     assert marker in html, f'markören {marker} saknas i sida.html'

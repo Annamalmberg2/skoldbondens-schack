@@ -3,8 +3,8 @@
   --gold-light: #e8cf8f;
   --wood-dark: #4a2c1a;
   --wood-mid: #6e4226;
-  --square-light: #e9d9b7;
-  --square-dark: #9a6b45;
+  --square-light: #ddc59a;
+  --square-dark: #96683f;
   --bg: #2b1c12;
   --panel: #3a2718;
   --text: #f0e6d2;
@@ -168,17 +168,8 @@ main {
   user-select: none;
 }
 
-.square.light {
-  background:
-    repeating-linear-gradient(93deg, rgba(255,255,255,.05) 0 3px, rgba(0,0,0,.02) 3px 7px),
-    var(--square-light);
-}
-
-.square.dark {
-  background:
-    repeating-linear-gradient(87deg, rgba(0,0,0,.07) 0 4px, rgba(255,255,255,.03) 4px 8px),
-    var(--square-dark);
-}
+.square.light { background: var(--square-light); }
+.square.dark { background: var(--square-dark); }
 
 /* koordinater i hörnen av kantrutorna */
 .coord {
@@ -200,17 +191,19 @@ main {
   left: 50%;
   transform: translateX(-50%);
   pointer-events: none;
-  filter: drop-shadow(0 5px 4px rgba(0,0,0,.45));
+  filter:
+    drop-shadow(0 0 1px rgba(45, 28, 6, .9))
+    drop-shadow(0 5px 4px rgba(0,0,0,.45));
 }
 .piece svg { height: 100%; width: auto; display: block; }
 
-/* höjdskala per pjästyp — drottningen ÄR högst, kungen tydligt kortare */
-.piece.q { height: 122%; }
-.piece.k { height: 108%; }
-.piece.b { height: 100%; }
-.piece.n { height: 96%; }
-.piece.r { height: 90%; }
-.piece.p { height: 84%; }
+/* höjdskala per pjästyp — drottningen ÄR högst men ryms i sin ruta */
+.piece.q { height: 98%; }
+.piece.k { height: 88%; }
+.piece.b { height: 82%; }
+.piece.n { height: 80%; }
+.piece.r { height: 75%; }
+.piece.p { height: 68%; }
 
 /* markeringar */
 .square.selected { outline: 3px solid var(--gold-light); outline-offset: -3px; }
@@ -261,6 +254,21 @@ main {
   justify-content: center;
   padding: 4px;
 }
+
+/* kommentatorn */
+.commentary {
+  font-style: italic;
+  font-size: .92rem;
+  line-height: 1.45;
+  color: var(--text);
+  background: rgba(0,0,0,.22);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 9px 11px;
+  margin: 8px 0 4px;
+  min-height: 3.4em;
+}
+.commentary .mic { font-style: normal; margin-right: 5px; }
 
 .buttons { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 16px; }
 

@@ -9,11 +9,11 @@
 const PALETTES = {
   w: {
     id: 'w',
-    metalTop: '#f6e2a0', metalMid: '#d4a939', metalLow: '#8a6420',
-    stroke: '#5f4512',
-    pearlTop: '#fdfaf2', pearlLow: '#d9cdb4',
-    wood: '#8a5a30', woodDark: '#5f3c1c',
-    rope: '#d9c08a',
+    metalTop: '#fefaf0', metalMid: '#f0e3c2', metalLow: '#b2965c',
+    stroke: '#4f3e1a',
+    pearlTop: '#ffffff', pearlLow: '#e4dbc6',
+    wood: '#a8763f', woodDark: '#7a5226',
+    rope: '#e8d5a8',
     jewel: '#4a5aa8'
   },
   b: {
@@ -104,12 +104,22 @@ function rookSVG(p) {
 /* ---------- Springaren ---------- */
 function knightSVG(p) {
   const horse = `
-  <path d="M56 178 L54 150 C53 134 50 122 42 114 L32 106 C26 101 25 93 29 87 C36 74 48 66 60 62 L58 48 C58 42 64 40 67 45 L73 56 C79 65 82 75 82 86 L82 122 C82 144 78 162 74 178 Z"
+  <path d="M36 178
+           C32 154 32 134 40 118
+           C42 110 40 104 34 100
+           C26 96 21 90 23 83
+           C25 76 29 71 35 69
+           C39 67 43 62 46 56
+           L45 44 L53 54
+           L59 42 L63 55
+           C71 59 77 69 79 82
+           C83 108 81 144 75 178 Z"
         fill="url(#metal-${p.id})" stroke="${p.stroke}" stroke-width="2.5" stroke-linejoin="round"/>
-  <path d="M29 90 C33 96 39 99 45 99" fill="none" stroke="${p.stroke}" stroke-width="2" stroke-linecap="round" opacity=".7"/>
-  <circle cx="52" cy="80" r="2.8" fill="${p.stroke}"/>
-  <path d="M74 60 C79 76 80 100 78 122" fill="none" stroke="${p.stroke}" stroke-width="2" opacity=".45"/>
-  <path d="M60 62 L52 52 C50 48 54 44 57 47 Z" fill="url(#metal-${p.id})" stroke="${p.stroke}" stroke-width="1.8"/>`;
+  <circle cx="46" cy="79" r="2.8" fill="${p.stroke}"/>
+  <circle cx="28" cy="85" r="1.7" fill="${p.stroke}"/>
+  <path d="M30 93 C34 96 39 97 43 96" fill="none" stroke="${p.stroke}" stroke-width="1.8" stroke-linecap="round" opacity=".65"/>
+  <path d="M64 60 C71 78 73 110 69 140" fill="none" stroke="${p.stroke}" stroke-width="2" opacity=".45"/>
+  <path d="M62 66 C67 82 69 108 66 132" fill="none" stroke="${p.stroke}" stroke-width="1.4" opacity=".3"/>`;
   return svgWrap(p, horse + base(p, 178));
 }
 
@@ -166,14 +176,18 @@ const PIECE_BUILDERS = {
   p: pawnSVG, r: rookSVG, n: knightSVG, b: bishopSVG, q: queenSVG, k: kingSVG
 };
 
-// cache: 12 pjäser, byggs en gång
-const PIECE_SVG = {};
-for (const color of ['w', 'b']) {
-  for (const type of Object.keys(PIECE_BUILDERS)) {
-    PIECE_SVG[color + type] = PIECE_BUILDERS[type](PALETTES[color]);
-  }
+/*
+ * Varje pjäs-instans får unika gradient-id:n. Delade id:n går sönder när
+ * webbläsaren löser url(#...) mot ett exemplar som ligger i en dold del av
+ * sidan (t.ex. landningssidan under pågående parti) — då försvinner fyllningen.
+ */
+let SVG_UID = 0;
+
+function pieceSVG(color, type) {
+  const p = { ...PALETTES[color], id: color + '-' + (++SVG_UID) };
+  return PIECE_BUILDERS[type](p);
 }
 
 function pieceHTML(color, type) {
-  return `<div class="piece ${type}">${PIECE_SVG[color + type]}</div>`;
+  return `<div class="piece ${type}">${pieceSVG(color, type)}</div>`;
 }

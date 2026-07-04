@@ -165,10 +165,15 @@ function clearSelection() {
 }
 
 function makeMove(moveObj) {
+  const fore = evaluateBoard(game);
   const result = game.move(moveObj);
   if (!result) return;
+  const vinst = result.color === 'w'
+    ? evaluateBoard(game) - fore
+    : fore - evaluateBoard(game);
   lastMove = { from: result.from, to: result.to };
   clearSelection();
+  visaKommentar(kommentera(result, game, vinst));
   render();
 
   if (mode === 'ai' && !game.game_over() && game.turn() === aiColor) {
@@ -186,8 +191,15 @@ function scheduleAiMove() {
     const move = pickAiMove(game.fen(), aiLevel);
     aiThinking = false;
     if (move) {
+      const fore = evaluateBoard(game);
       const result = game.move(move);
-      if (result) lastMove = { from: result.from, to: result.to };
+      if (result) {
+        const vinst = result.color === 'w'
+          ? evaluateBoard(game) - fore
+          : fore - evaluateBoard(game);
+        lastMove = { from: result.from, to: result.to };
+        visaKommentar(kommentera(result, game, vinst));
+      }
     }
     render();
   }, 120);
@@ -201,7 +213,7 @@ function showPromotionDialog() {
   choices.innerHTML = '';
   for (const type of ['q', 'r', 'b', 'n']) {
     const btn = document.createElement('button');
-    btn.innerHTML = PIECE_SVG[pendingPromotion.color + type];
+    btn.innerHTML = pieceSVG(pendingPromotion.color, type);
     btn.addEventListener('click', () => {
       const { from, to } = pendingPromotion;
       pendingPromotion = null;
@@ -270,6 +282,9 @@ document.getElementById('btn-start').addEventListener('click', () => {
   pendingPromotion = null;
   document.getElementById('landing').classList.add('hidden');
   document.getElementById('game').classList.remove('hidden');
+  visaKommentar(mode === 'ai'
+    ? 'Välkomna till brädet! Människa mot maskin — må bäst kloka vinna.'
+    : 'Välkomna till brädet! Två spelare, ett kungarike. Vit inleder.');
   render();
 
   if (mode === 'ai' && game.turn() === aiColor) {
@@ -281,10 +296,10 @@ document.getElementById('btn-start').addEventListener('click', () => {
 
 // dekorativa pjäser på landningssidan — drottningen högst, förstås
 document.getElementById('hero-pieces').innerHTML =
-  `<span class="hp-pawn">${PIECE_SVG.wp}</span>` +
-  `<span class="hp-queen">${PIECE_SVG.wq}</span>` +
-  `<span class="hp-king">${PIECE_SVG.wk}</span>` +
-  `<span class="hp-knight">${PIECE_SVG.wn}</span>`;
+  `<span class="hp-pawn">${pieceSVG('w', 'p')}</span>` +
+  `<span class="hp-queen">${pieceSVG('w', 'q')}</span>` +
+  `<span class="hp-king">${pieceSVG('w', 'k')}</span>` +
+  `<span class="hp-knight">${pieceSVG('w', 'n')}</span>`;
 
 render();
 
