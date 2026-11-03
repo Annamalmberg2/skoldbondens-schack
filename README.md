@@ -4,6 +4,9 @@ Ett komplett, spelbart schackspel i webbläsaren — byggt efter en konceptbild
 där drottningen är den högsta pjäsen (för hon är farligast) och bonden bär
 sköld, högrep och rep.
 
+**Live:** https://annamalmberg2.github.io/skoldbondens-schack/
+(GitHub Pages — repot `Annamalmberg2/skoldbondens-schack`, konto gh inloggat)
+
 ## Spela
 
 **Allt ligger i en enda fil: `index.html`.** Dubbelklicka på den så spelar du.
@@ -19,9 +22,13 @@ Alla schackregler gäller: rockad, en passant, bondeförvandling (du väljer
 pjäs), schackmatt, patt, trefaldig upprepning, 50-dragsregeln och remi vid
 otillräckligt material. Reglerna sköts av [chess.js](https://github.com/jhlywa/chess.js).
 
-## Publicera på nätet (Cloudflare Pages)
+## Publicera på nätet
 
-Sajten är helt statisk — inget byggsteg behövs.
+Sajten är **live via GitHub Pages** på adressen ovan — en vanlig
+`git push` till `origin` uppdaterar den inom någon minut. Sajten är helt
+statisk, inget byggsteg behövs (men kör `./bygg.sh` om du ändrat i `src/`).
+
+Den kan även köras på **Cloudflare Pages** som alternativ:
 
 1. Pusha det här repot till GitHub.
 2. I Cloudflare: **Workers & Pages → Create → Pages → Connect to Git** och välj repot.
